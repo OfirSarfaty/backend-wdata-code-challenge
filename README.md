@@ -44,18 +44,18 @@ The response will look like this:
 
 ```json
 [
- {
- "forecastTime": "2021-04-02T13:00:00Z",
- "conditionMet": true
- },
- {
- "forecastTime": "2021-04-02T14:00:00Z",
- "conditionMet": true
- },
- {
- "forecastTime": "2021-04-02T15:00:00Z",
- "conditionMet": false
- }
+  {
+    "conditionMet": true,
+    "forecastTime": "2021-04-02T13:00:00"
+  },
+  {
+    "conditionMet": true,
+    "forecastTime": "2021-04-02T14:00:00"
+  },
+  {
+    "conditionMet": false,
+    "forecastTime": "2021-04-02T15:00:00"
+  }
 ]
 ```
 
