@@ -1,4 +1,4 @@
-# Weather Data Service - Backend Challenge
+# Weather Data Service - Code Challenge
 
 ## Overview
 
@@ -12,7 +12,7 @@ The service is hosted at:
 
 https://weather-service-for-tommorow-io.onrender.com
 
-### Endpoint
+### Route
 
 **GET** `/weather/insight`
 
@@ -30,14 +30,15 @@ https://weather-service-for-tommorow-io.onrender.com
 
 ### Example Request
 
-For browser use:
+Can run on browser:
 
-```plaintext
-https://weather-service-for-tommorow-io.onrender.com/weather/insight?lon=51.5&lat=24.5&condition=veryHot```
+`https://weather-service-for-tommorow-io.onrender.com/weather/insight?lon=51.5&lat=24.5&condition=veryHot`
 
 Or as CURL Command:
 
-```bash curl "https://weather-service-for-tommorow-io.onrender.com/weather/insight?condition=veryHot&lat=42.332&lon=35.421" ```
+```console
+ curl "https://weather-service-for-tommorow-io.onrender.com/weather/insight?condition=veryHot&lat=42.332&lon=35.421"
+```
 
 The response will look like this:
 
