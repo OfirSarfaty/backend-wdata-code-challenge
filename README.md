@@ -76,15 +76,15 @@ There are many ways to improve the project. Here are some of them that I would c
 - **Caching**: Implementing caching mechanisms for frequently requested data to reduce load on the database.for exsample, the data from a contrys that uses the service freactlly, or by datatime that can be freauanly asked. 
 - **Data Integrity**: The current setup does not fully validate the CSV data for errors before ingestion, and it may lead to corrupted data in the database. In this project, I build only one test for the data, to check that all the data from the files inserted to the database, But it would be helpfull to add more tests.
 
-## Requirements for Production Readiness
+## Requirements for Production
 
 To make this project a production-ready service, the following changes and adding are necessary:
 
-- **Security Measures**: Use authentication mechanisms to control access to the API endpoints.
-- **Robust Error Handling**: Enhance error handling to gracefully manage and log errors, to provide to the user clear error messages.
+- **Security Measures**: Implement authentication mechanisms to control access to the API endpoints.
+- **Error Handling**: Enhance error handling to gracefully manage and log errors, to provide to the user clear error messages.
 - **(CI/CD)**: Set up CI/CD pipelines to automate testing and deployment, ensuring code changes do not break the API functionality.
 - **Monitoring and Logging**: Implement logging and monitoring methods and tools to track the API’s performance and quickly identify issues when they arise.
-- **Data Backup and Recovery**: Establish backup procedures and a robust disaster recovery plan to prevent data loss and ensure data availability.
+- **Data Backup and Recovery**: Establish backup procedures and a disaster recovery plan to prevent data loss and ensure data availability.
 
 
 
