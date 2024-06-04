@@ -1,131 +1,89 @@
-# backend-wdata-code-challenge - Weather Data Team Candidate Home Work
+# Weather Data Service - Backend Challenge
 
-## Abstract
+## Overview
 
-Let's build a weather service. In this task, you will digest the weather data source and expose it via an amazing API that you are going to build!
+This service analyzes historical weather data to provide insights based on user-specified conditions. It ingests CSV data into a database and exposes an API endpoint for easy access.
 
-### CSV Files
+## How to Use the Service
 
-For this task, we will use CSV files as our data source just to make it simple. In the "real world", we won't use CSV, but other formats that are more optimized for weather data such as NetCDF, Zarr. Attached you will find 3 files in CSV format. The files represent weather forecast data. The files are world coverage so you will be able to know what is the weather all over the world! Each file represents a weather forecast of a different time (day/hour).
+### Base URL
 
-**BTW**: this is just mock data, don't try to plan your next trip based on this forecast :)
+The service is hosted at:
 
-## The Task
+https://weather-service-for-tommorow-io.onrender.com
 
-In this task, we want you to create a web service that will give the user a timeline of a weather insight - if a certain condition, based on the weather parameters, is met for a specific location.
-To do so, you will have to ingest several files containing weather data into a database of you choice. Each file has 5 columns: Longitude, Latitude, forecast time, Temperature, Precipitation.
-The service will expose a single route:
+### Endpoint
 
-1. `/weather/insight?condition={condition}&lat={lat}&lon={lon}` - will return either `true` or `false` for every timestamp, for two predefined conditions:
-    1. `veryHot`  - based on the condition `temperature > 30`
-    2. `rainyAndCold` - based on the condition `temperature < 10 AND precipitation > 0.5`
+**GET** `/weather/insight`
 
-**Please note that Temperature is in Celsius, and Precipitation Rate is in mm/hr.
+### Query Parameters
 
-### Service Explanation
+- `condition`: The weather condition to check (`veryHot` or `rainyAndCold`).
+- `lat`: Latitude of the location.
+- `lon`: Longitude of the location.
 
-### Route: `/weather/insight`
+### Conditions Defined
 
-- **Query Parameters**: lat, lon, condition
-    - `condition` can be either `veryHot` or `rainyAndCold`
-- **Output (JSON) - Example**:
-    
-    ```json
-    [
-      {
-        "forecastTime": "2018-12-10T13:00:00.000Z",
-        "conditionMet": true,
-      },
-      {
-        "forecastTime": "2018-12-10T14:00:00.000Z",
-        "conditionMet": false,
-      },
-      {
-        "forecastTime": "2018-12-10T15:00:00.000Z",
-        "conditionMet": false,
-      },
-    ]
-    
-    ```
-    
+- `veryHot`: Returns `true` if the temperature is above 30°C.
+- `rainyAndCold`: Returns `true` if the temperature is below 10°C and precipitation is more than 0.5 mm/hr.
 
-## What is Expected
 
-- A working end to end service.
-- A github repository with your solution.
-- Add a section to your readme: `How to use this service` for example `http://my-cool-service.com/weather/insight?condition=veryHotlat=42.332&lon=35.421` **Make sure that the URL that you are providing is WORKING!** (`curl <YOUR_URŁ>` should provide a result)
+### Example Request
 
-### Implementation
+For browser use:
 
-The service should have 2 parts:
+```plaintext
+https://weather-service-for-tommorow-io.onrender.com/weather/insight?lon=51.5&lat=24.5&condition=veryHot```
 
-1. Ingest the CSV into Database.
-2. Web Server that reads the data from the Database and displays it.
+Or as CURL Command:
 
-### Tips
+```bash curl "https://weather-service-for-tommorow-io.onrender.com/weather/insight?condition=veryHot&lat=42.332&lon=35.421" ```
 
-- **Programming Language**: Pick whatever you like, pick the language that you are most comfortable with.
-- **Database**: SQL/NoSQL, whatever you think will be fast and good for this task.
-- You can use any free hosting provider such as [render.com](http://render.com/), Heroku, AWS, GCS, Azure, DigitalOcean, etc... (if you don't know any of them, we recommend using [render.com](http://render.com/) as it is the easiest to start with and we tested that the task can run on it).
-- Take your time to go over the instructions and attached data before you begin.
-- You can use the following examples to validate that your code is working as expected:
-    - **Request**: `http://{url}/weather/insight?lon=51.5&lat=24.5&condition=veryHot`
-      
-      **Response**:
+The response will look like this:
 
-      ```json
-      [
-          {
-              "forecastTime": "2021-04-02T13:00:00Z",
-              "conditionMet": true
-          },
-          {
-              "forecastTime": "2021-04-02T14:00:00Z",
-              "conditionMet": true
-          },
-          {
-              "forecastTime": "2021-04-02T15:00:00Z",
-              "conditionMet": false
-          }
-      ]
-      ```
-  
-    - **Request**: `http://{url}/weather/insight?lon=51.5&lat=24.5&condition=rainyAndCold`
-      
-      **Response**:
-      
-      ```json
-      [
-          {
-              "forecastTime": "2021-04-02T13:00:00Z",
-              "conditionMet": false
-          },
-          {
-              "forecastTime": "2021-04-02T14:00:00Z",
-              "conditionMet": false
-          },
-          {
-              "forecastTime": "2021-04-02T15:00:00Z",
-              "conditionMet": true
-          }
-      ]
-      ```
+```json
+[
+ {
+ "forecastTime": "2021-04-02T13:00:00Z",
+ "conditionMet": true
+ },
+ {
+ "forecastTime": "2021-04-02T14:00:00Z",
+ "conditionMet": true
+ },
+ {
+ "forecastTime": "2021-04-02T15:00:00Z",
+ "conditionMet": false
+ }
+]
+```
 
-### General
+Note: If using a browser, press on the small box at the top-right of the page for 'Pretty-print'.
 
-- Attach to your task a list of things that you think should be optimized/pitfalls in your solution.
-- Write any assumptions that you make (if any).
-- This is not a production service, but we will be happy to know what is missing to make it one.
-- If you think that you are investing too much time on the task, please let us know and write what is missing to complete it.
+## Assumptions
 
-### Data Source Links
+- **Preciptatom rate units**: In file3, the Precipitation Rate is described in the units 'in/hr', while in the other files, it is described as mm/hr. I assomed that this is not a mistake, and convert the values from inch to millmetre. 
+- **time format**: the time format in the CSV files is ISO 8601, without a time zone information. But the results in the instruction were with time zone information (with Z in the end of the timestamp). I assumaed that I need to represent the timestamp as it in the files, without time zone information. 
+- **Data Consistency**: I assumed that the CSV files are reliable, without missing fields or corrupt data.
 
-- [File 1](https://storage.googleapis.com/tomorrow-external-access/Data-Team-Candidate-Home-Work-Task/File1.csv)
-- [File 2](https://storage.googleapis.com/tomorrow-external-access/Data-Team-Candidate-Home-Work-Task/File2.csv)
-- [File 3](https://storage.googleapis.com/tomorrow-external-access/Data-Team-Candidate-Home-Work-Task/File3.csv)
 
-## Questions?
+## Optimizations and Pitfalls
 
-Please contact us, WhatsApp, email, phone call.
+There are many ways to improve the project. Here are some of them that I would consider doing:
 
-**Good luck!**
+- **Database Performance**: Indexing key columns like latitude, longitude, and forecast_time to improve query response times.
+- **Caching**: Implementing caching mechanisms for frequently requested data to reduce load on the database.for exsample, the data from a contrys that uses the service freactlly, or by datatime that can be freauanly asked. 
+- **Data Integrity**: The current setup does not fully validate the CSV data for errors before ingestion, and it may lead to corrupted data in the database. In this project, I build only one test for the data, to check that all the data from the files inserted to the database, But it would be helpfull to add more tests.
+
+## Requirements for Production Readiness
+
+To make this project a production-ready service, the following changes and adding are necessary:
+
+- **Security Measures**: Use authentication mechanisms to control access to the API endpoints.
+- **Robust Error Handling**: Enhance error handling to gracefully manage and log errors, to provide to the user clear error messages.
+- **(CI/CD)**: Set up CI/CD pipelines to automate testing and deployment, ensuring code changes do not break the API functionality.
+- **Monitoring and Logging**: Implement logging and monitoring methods and tools to track the API’s performance and quickly identify issues when they arise.
+- **Data Backup and Recovery**: Establish backup procedures and a robust disaster recovery plan to prevent data loss and ensure data availability.
+
+
+
